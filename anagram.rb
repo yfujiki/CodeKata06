@@ -1,12 +1,12 @@
 startTime = Time.now
 
 sortedToWordsHash = {}
-wordList = []
+words = []
 File.open('input.txt').each do |line|
   word = line.chomp
   sortedWord = word.downcase.chars.sort.join
 
-  wordList.push(word)
+  words.push(word)
   if sortedToWordsHash[sortedWord]
     sortedToWordsHash[sortedWord].push(word)
   else
@@ -16,13 +16,13 @@ end
 
 
 File.open('output.txt', 'w') do |file|
-  wordList.each do |string|
-    file.print "#{string}\t"
+  words.each do |word|
+    file.print "#{word}\t"
 
-    target = string.downcase.chars.sort.join
-    words = sortedToWordsHash[target]
-    words.each do |word|
-      file.print word + ", "
+    sortedWord = word.downcase.chars.sort.join
+    anagrams = sortedToWordsHash[sortedWord]
+    anagrams.each do |anagram|
+      file.print anagram + ", "
     end
 
     file.puts
